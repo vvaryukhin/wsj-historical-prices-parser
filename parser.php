@@ -15,12 +15,12 @@ function formatDate($date, $format = 'm/d/y')
 
 class WSJ
 {
-  protected $baseUri; // https://quotes.wsj.com/
-  public $url; // https://quotes.wsj.com/$name/historical-prices/download?MOD_VIEW=page&num_rows=&range_days=&startDate=$startDate&endDate=$endDate;
+  protected $baseUri; // https://www.wsj.com/market-data/quotes
+  public $url; // https://www.wsj.com/market-data/quotes/$name/historical-prices/download?MOD_VIEW=page&num_rows=&range_days=&startDate=$startDate&endDate=$endDate;
 
   public function __construct($name, $startDate, $endDate)
   {
-    $this->baseUri = 'https://quotes.wsj.com';
+    $this->baseUri = 'https://www.wsj.com/market-data/quotes';
     $days = $numRows = $rangeDays = ($endDate - $startDate) / 60 / 60 / 24;
 
     $args = array(
@@ -91,6 +91,7 @@ class Request
     $ch = curl_init();
 
     curl_setopt_array($ch, array(
+      CURLOPT_REFERER => "https://www.wsj.com/market-data/quotes/",
       CURLOPT_FOLLOWLOCATION => true,
       CURLOPT_SSL_VERIFYPEER => false,
       CURLOPT_URL => $this->url,
