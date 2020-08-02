@@ -50,7 +50,7 @@ class Parser
 
   public function __construct($data)
   {
-    $this->data = array_slice(explode(PHP_EOL, $data), 1);
+    $this->data = array_slice(preg_split("/(\r\n|\n|\r)/", $data), 1);
   }
 
   public function parse()
